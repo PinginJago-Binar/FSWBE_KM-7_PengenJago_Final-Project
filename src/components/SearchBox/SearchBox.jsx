@@ -22,8 +22,9 @@ const SearchBox = () => {
 
   .custom-input::placeholder {
     color: #7126B5; 
-    font-size: 0.7vw; 
+    font-size: 1vw; 
     font-weight: 600; 
+
 
   }
 `}</style>
