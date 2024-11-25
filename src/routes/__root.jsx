@@ -11,10 +11,10 @@ export const Route = createRootRoute({
     return (
       <>
         <NavBar />
+        <div id="promo-header-container"></div>
         <Container>
           <Outlet />
         </Container>
-
         {/* Debugging tool for router */}
         <TanStackRouterDevtools />
         <ToastContainer theme="colored" />

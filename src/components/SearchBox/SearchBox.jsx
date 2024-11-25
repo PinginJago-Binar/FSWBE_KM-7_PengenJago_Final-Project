@@ -19,15 +19,17 @@ const SearchBox = () => {
   return (
     <>
       <style>{`
-      .custom-input::placeholder {
-      color: #7126B5;
-      font-size: 12px;
-      font-weight: 600;
-              }
-      `}</style>
-      <div className="my-4">
+
+  .custom-input::placeholder {
+    color: #7126B5; 
+    font-size: 0.7vw; 
+    font-weight: 600; 
+
+  }
+`}</style>
+      <div>
         <Row className="justify-content-center">
-          <Col md={10} sm={12}>
+          <Col md={12} sm={12} xs={12}>
             <Form className="rounded shadow-lg p-4 bg-white  position-relative">
               <Row className="mb-4">
                 <Col xs={12}>
@@ -183,12 +185,6 @@ const SearchBox = () => {
                             Return
                           </span>
                         </Form.Label>
-
-                        <Form.Check
-                          type="switch"
-                          id="returnSwitch"
-                          onChange={handleSwitchChange}
-                        />
                       </div>
                       <Form.Group
                         controlId="returnDate"
@@ -218,7 +214,13 @@ const SearchBox = () => {
                     </Form.Label>
                   </Col> */}
                 </Col>
-                <Col md={2}></Col>
+                <Col md={2}>
+                  <Form.Check
+                    type="switch"
+                    id="returnSwitch"
+                    onChange={handleSwitchChange}
+                  />
+                </Col>
                 <Col md={5} className="d-flex align-items-center ">
                   <Form.Label className="fw-bold mb-1 me-2 d-flex align-items-center">
                     <img
@@ -235,12 +237,12 @@ const SearchBox = () => {
                   </Form.Label>
 
                   {/* Kolom Tanggal Keberangkatan */}
-                  <Col md={3.5} className="mb-3">
+                  <Col md={3.5} xs={4.5} className="mb-2">
                     <Form.Label>
                       <span
                         style={{
                           color: "#8A8A8A",
-                          fontSize: 10,
+                          fontSize: "clamp(10px, 1vw, 12px)",
                           paddingLeft: "10px",
                         }}
                       >
@@ -254,7 +256,7 @@ const SearchBox = () => {
                     >
                       <Form.Control
                         type="text"
-                        placeholder="Pilih Tanggal"
+                        placeholder="Penumpang"
                         readOnly
                         className="border-0 border-bottom flex-grow-1  custom-input"
                         style={{
@@ -268,12 +270,12 @@ const SearchBox = () => {
                   </Col>
                   <Col md={1} xs={2}></Col>
                   {/* Kolom Tanggal Kembali */}
-                  <Col md={3.5} className="mb-3 align-items-center">
+                  <Col md={3.5} xs={4.5} className="mb-2 align-items-center">
                     <Form.Label className>
                       <span
                         style={{
                           color: "#8A8A8A",
-                          fontSize: 10,
+                          fontSize: "clamp(10px, 1vw, 12px)",
                           paddingLeft: "10px",
                         }}
                       >
@@ -288,7 +290,7 @@ const SearchBox = () => {
                     >
                       <Form.Control
                         type="text"
-                        placeholder="Pilih Tanggal"
+                        placeholder="Jenis Kursi"
                         readOnly
                         className="border-0 border-bottom flex-grow-1  custom-input"
                         style={{

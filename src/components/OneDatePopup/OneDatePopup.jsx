@@ -15,7 +15,14 @@ const StyledCalendar = styled(Calendar)`
 
 const OneDatePopup = ({ props, show, handleClose }) => {
   return (
-    <Modal {...props} Modal show={show} onHide={handleClose} centered>
+    <Modal
+      {...props}
+      Modal
+      show={show}
+      onHide={handleClose}
+      centered
+      className="d-flex justify-content-center align-items-center"
+    >
       <StyledCalendar color="purple" />
     </Modal>
   );
