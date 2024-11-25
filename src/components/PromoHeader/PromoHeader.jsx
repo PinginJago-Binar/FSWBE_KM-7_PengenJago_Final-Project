@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import SearchBox from "../SearchBox/SearchBox";
+import FavoriteDestination from "../FavoriteDestination/FavoriteDestination";
 
 function PromoHeader() {
   const promoHeaderContainer = document.getElementById(
@@ -35,8 +36,11 @@ function PromoHeader() {
             className="d-flex flex-column"
             style={{ height: "100%", width: "100%" }}
           >
-            <div style={{ marginTop: "30vh" }}>
+            <div style={{ paddingTop: "30vh" }}>
               <SearchBox />
+            </div>
+            <div style={{ paddingTop: "50px" }}>
+              <FavoriteDestination />
             </div>
           </div>
         </div>

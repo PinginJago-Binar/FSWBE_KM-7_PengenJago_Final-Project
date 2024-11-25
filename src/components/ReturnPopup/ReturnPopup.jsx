@@ -11,7 +11,7 @@ import {
 } from "react-bootstrap";
 import { FaSearch } from "react-icons/fa"; // Import icon search dari react-icons
 
-const DestinationPopup = ({ show, handleClose, onSelectCity }) => {
+const ReturnPopup = ({ show, handleClose, onSelectCity }) => {
   const [searchText, setSearchText] = useState("");
   const [recentSearches, setRecentSearches] = useState([
     "Jakarta",
@@ -134,4 +134,4 @@ const DestinationPopup = ({ show, handleClose, onSelectCity }) => {
   );
 };
 
-export default DestinationPopup;
+export default ReturnPopup;

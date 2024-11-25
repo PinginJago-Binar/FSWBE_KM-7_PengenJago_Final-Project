@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Modal, Button, ListGroup } from "react-bootstrap";
 import Image from "react-bootstrap/Image";
-const ClassPopup = ({ props, show, handleClose }) => {
+
+const ClassPopup = ({ show, handleClose, onSelectClass }) => {
   const [selectedClass, setSelectedClass] = useState("Economy");
 
   // Data untuk opsi kelas penerbangan
@@ -12,8 +13,13 @@ const ClassPopup = ({ props, show, handleClose }) => {
     { name: "First Class", price: "IDR 87.620.000" },
   ];
 
+  const handleSave = () => {
+    onSelectClass(selectedClass); // Kirim kelas yang dipilih ke komponen induk
+    handleClose(); // Tutup modal
+  };
+
   return (
-    <Modal {...props} show={show} onHide={handleClose} centered>
+    <Modal show={show} onHide={handleClose} centered>
       <Modal.Header closeButton></Modal.Header>
       <Modal.Body>
         <ListGroup>
@@ -46,7 +52,6 @@ const ClassPopup = ({ props, show, handleClose }) => {
                           : "#7126B5",
                     }}
                   >
-                    {" "}
                     {flightClass.price}
                   </span>
                 </div>
@@ -66,7 +71,7 @@ const ClassPopup = ({ props, show, handleClose }) => {
       <Modal.Footer style={{ border: "none" }}>
         <Button
           style={{ backgroundColor: "#5E2D91", border: "none" }}
-          onClick={handleClose}
+          onClick={handleSave}
         >
           Simpan
         </Button>

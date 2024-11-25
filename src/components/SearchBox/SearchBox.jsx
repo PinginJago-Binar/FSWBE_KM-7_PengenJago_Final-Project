@@ -7,14 +7,51 @@ import DestinationPopup from "../DestinationPopup/DestinationPopup";
 import ClassPopup from "../ClassPopup/ClassPopup";
 import OneDatePopup from "../OneDatePopup/OneDatePopup";
 import PassengersPopup from "../PassengersPopup/PassengeresPopup";
+import ReturnPopup from "../ReturnPopup/ReturnPopup";
+import { format, parseISO } from "date-fns";
+import id from "date-fns/locale/id"; // Import untuk format bahasa Indonesia jika diperlukan
 const SearchBox = () => {
   const [modalShow, setModalShow] = useState(false); // State untuk modal destinasi
+  const [returnmodalShow, setReturnModalShow] = useState(false); // State untuk modal destinasi
   const [dateModalShow, setDateModalShow] = useState(false); // State untuk modal tanggal
   const [ClassModalShow, setClassModalShow] = useState(false); // State untuk modal Class
   const [PassengersModalShow, setPassengersModalShow] = useState(false); // State untuk modal Class
   const [isReturnEnabled, setIsReturnEnabled] = useState(false); // State untuk switch
+  const [selectedDepartureCity, setSelectedDepartureCity] = useState(""); // State untuk milih kota
+  const [selectedReturnCity, setSelectedReturnCity] = useState(""); // State untuk milih kota kemana
+  const [selectedDepartureDate, setSelectedDepartureDate] = useState(""); // State untuk menyimpan tanggal keberangkatan (format YYYY-MM-DD)
+  const [selectedReturnDate, setSelectedReturnDate] = useState(""); // State untuk tanggal kembali
+  const [selectedClass, setSelectedClass] = useState(""); // Tambahkan state untuk kelas
+  const [selectedPassengers, setSelectedPassengers] = useState({
+    dewasa: 0,
+    anak: 0,
+    bayi: 0,
+  }); // State untuk jumlah penumpang
+
+  const handleSelectCounts = (counts) => {
+    setSelectedPassengers(counts); // Update state dengan jumlah penumpang yang dipilih
+  };
+  const handleSelectDates = (dates) => {
+    const [departure, returnDate] = dates;
+    setSelectedDepartureDate(departure.format("YYYY-MM-DD"));
+    setSelectedReturnDate(returnDate.format("YYYY-MM-DD"));
+  };
+  const formattedReturnDate = selectedReturnDate
+    ? format(parseISO(selectedReturnDate), "d MMMM yyyy", { locale: id })
+    : "Pilih Tanggal";
+
   const handleSwitchChange = () => {
     setIsReturnEnabled(!isReturnEnabled); // Toggle status switch
+    if (!isReturnEnabled) {
+      setSelectedReturnDate(""); // Reset return date when switch is turned off
+    }
+  };
+  const formattedDepartureDate = selectedDepartureDate
+    ? format(parseISO(selectedDepartureDate), "d MMMM yyyy", { locale: id })
+    : "Pilih Tanggal";
+
+  const getTotalPassengers = () => {
+    return selectedPassengers.dewasa + selectedPassengers.anak;
   };
   return (
     <>
@@ -67,6 +104,7 @@ const SearchBox = () => {
                       type="text"
                       placeholder="Pilih Kota"
                       readOnly
+                      value={selectedDepartureCity || "Pilih Kota"}
                       className="border-0 border-bottom flex-grow-1 custom-input"
                       style={{
                         borderRadius: 0,
@@ -88,7 +126,7 @@ const SearchBox = () => {
                   <Form.Group
                     controlId="toCity"
                     className="mb-3 d-flex align-items-center"
-                    onClick={() => setModalShow(true)}
+                    onClick={() => setReturnModalShow(true)}
                   >
                     <Form.Label className="fw-bold mb-1 me-2 d-flex align-items-center">
                       <img
@@ -106,6 +144,7 @@ const SearchBox = () => {
                     <Form.Control
                       type="text"
                       placeholder="Pilih Kota"
+                      value={selectedReturnCity || "Pilih Kota"}
                       readOnly
                       className="border-0 border-bottom flex-grow-1  custom-input"
                       style={{
@@ -156,6 +195,7 @@ const SearchBox = () => {
                           type="text"
                           placeholder="Pilih Tanggal"
                           readOnly
+                          value={formattedDepartureDate}
                           className="border-0 border-bottom flex-grow-1 custom-input"
                           style={{
                             borderRadius: 0,
@@ -196,6 +236,7 @@ const SearchBox = () => {
                           type="text"
                           placeholder="Pilih Tanggal"
                           readOnly
+                          value={formattedReturnDate}
                           disabled={!isReturnEnabled} // Kolom aktif atau tidak bergantung pada status switch
                           className="border-0 border-bottom flex-grow-1 custom-input"
                           style={{
@@ -258,6 +299,11 @@ const SearchBox = () => {
                       <Form.Control
                         type="text"
                         placeholder="Penumpang"
+                        value={
+                          getTotalPassengers() > 0
+                            ? `${getTotalPassengers()} Penumpang`
+                            : "Jumlah Penumpang"
+                        }
                         readOnly
                         className="border-0 border-bottom flex-grow-1  custom-input"
                         style={{
@@ -293,6 +339,7 @@ const SearchBox = () => {
                         type="text"
                         placeholder="Jenis Kursi"
                         readOnly
+                        value={selectedClass || "Pilih Kelas"}
                         className="border-0 border-bottom flex-grow-1  custom-input"
                         style={{
                           borderRadius: 0,
@@ -335,26 +382,43 @@ const SearchBox = () => {
         <DatePopup
           show={dateModalShow}
           handleClose={() => setDateModalShow(false)}
+          onSelectDates={handleSelectDates}
         />
       ) : (
         <OneDatePopup
           show={dateModalShow}
           handleClose={() => setDateModalShow(false)}
+          onSelectDate={(date) => setSelectedDepartureDate(date)} // Simpan tanggal yang dipilih
         />
       )}
       <DestinationPopup
         show={modalShow}
         handleClose={() => setModalShow(false)}
+        onSelectCity={(city) => {
+          setSelectedDepartureCity(city); // Set kota yang dipilih
+          setModalShow(false); // Tutup modal
+        }}
       />
 
       <ClassPopup
         show={ClassModalShow}
         handleClose={() => setClassModalShow(false)}
+        onSelectClass={(className) => setSelectedClass(className)} // Update state dengan kelas yang dipilih
       />
 
       <PassengersPopup
         show={PassengersModalShow}
         handleClose={() => setPassengersModalShow(false)}
+        onSelectCounts={handleSelectCounts} // Kirim fungsi untuk menyimpan data penumpang
+      />
+
+      <ReturnPopup
+        show={returnmodalShow}
+        handleClose={() => setModalShow(false)}
+        onSelectCity={(city) => {
+          setSelectedReturnCity(city); // Set kota yang dipilih
+          setReturnModalShow(false); // Tutup modal
+        }}
       />
     </>
   );

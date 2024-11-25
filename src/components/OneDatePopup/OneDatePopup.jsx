@@ -13,17 +13,28 @@ const StyledCalendar = styled(Calendar)`
   }
 `;
 
-const OneDatePopup = ({ props, show, handleClose }) => {
+const OneDatePopup = ({ show, handleClose, onSelectDate }) => {
+  const [selectedDate, setSelectedDate] = useState(null);
+
+  const handleDateChange = (date) => {
+    setSelectedDate(date);
+    onSelectDate(date.format("YYYY-MM-DD")); // Mengembalikan tanggal dalam format penyimpanan (YYYY-MM-DD)
+    handleClose(); // Tutup modal setelah memilih tanggal
+  };
   return (
     <Modal
-      {...props}
-      Modal
+      value={selectedDate}
+      onChange={handleDateChange}
       show={show}
       onHide={handleClose}
       centered
       className="d-flex justify-content-center align-items-center"
     >
-      <StyledCalendar color="purple" />
+      <StyledCalendar
+        color="purple"
+        value={selectedDate}
+        onChange={handleDateChange}
+      />
     </Modal>
   );
 };

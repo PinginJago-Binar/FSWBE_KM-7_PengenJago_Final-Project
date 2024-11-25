@@ -4,12 +4,12 @@ import Modal from "react-bootstrap/Modal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faChild, faBaby } from "@fortawesome/free-solid-svg-icons";
 
-const PassengersPopup = ({ props, show, handleClose }) => {
+const PassengersPopup = ({ show, handleClose, onSelectCounts }) => {
   // State untuk menyimpan jumlah Dewasa, Anak, dan Bayi
   const [counts, setCounts] = useState({
-    dewasa: 2,
+    dewasa: 0,
     anak: 0,
-    bayi: 1,
+    bayi: 0,
   });
 
   // Fungsi untuk mengatur jumlah berdasarkan tipe (dewasa, anak, bayi)
@@ -30,9 +30,17 @@ const PassengersPopup = ({ props, show, handleClose }) => {
     bayi: faBaby,
   };
 
+  // Mengirim data jumlah penumpang ke komponen parent
+  const handleSave = () => {
+    onSelectCounts(counts); // Kirim jumlah penumpang yang dipilih ke komponen parent
+    handleClose();
+  };
+
   return (
-    <Modal {...props} show={show} onHide={handleClose} centered>
-      <Modal.Header closeButton></Modal.Header>
+    <Modal show={show} onHide={handleClose} centered>
+      <Modal.Header closeButton>
+        <Modal.Title>Jumlah Penumpang</Modal.Title>
+      </Modal.Header>
       <Modal.Body>
         {/* Pemilihan jumlah penumpang */}
         {["dewasa", "anak", "bayi"].map((type, index) => (
@@ -65,27 +73,26 @@ const PassengersPopup = ({ props, show, handleClose }) => {
               <Button
                 variant="outline-secondary"
                 size="sm"
+                onClick={() => handleCountChange(type, "decrement")}
                 style={{
                   borderColor: "#7126B5",
-                  height: "40px", // Menyamaratakan tinggi
-                  width: "40px", // Menyamaratakan lebar tombol
-                  padding: "0", // Menghilangkan padding agar ukurannya tetap konsisten
+                  height: "40px",
+                  width: "40px",
                 }}
-                onClick={() => handleCountChange(type, "decrement")}
               >
                 -
               </Button>
               <span
                 style={{
                   border: "1px solid #D0D0D0",
-                  padding: "5px 15px", // Padding tambahan untuk memberi ruang lebih pada angka
+                  padding: "5px 15px",
                   borderRadius: "10px",
-                  minWidth: "50px", // Lebar minimal untuk angka lebih besar
+                  minWidth: "50px",
                   textAlign: "center",
-                  height: "40px", // Menyamaratakan tinggi dengan tombol
-                  display: "flex", // Agar angka selalu berada di tengah
-                  justifyContent: "center", // Memastikan angka berada di tengah secara horizontal
-                  alignItems: "center", // Memastikan angka berada di tengah secara vertikal
+                  height: "40px",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
                 }}
               >
                 {counts[type]}
@@ -93,13 +100,12 @@ const PassengersPopup = ({ props, show, handleClose }) => {
               <Button
                 variant="outline-secondary"
                 size="sm"
+                onClick={() => handleCountChange(type, "increment")}
                 style={{
                   borderColor: "#7126B5",
-                  height: "40px", // Menyamaratakan tinggi
-                  width: "40px", // Menyamaratakan lebar tombol
-                  padding: "0", // Menghilangkan padding agar ukurannya tetap konsisten
+                  height: "40px",
+                  width: "40px",
                 }}
-                onClick={() => handleCountChange(type, "increment")}
               >
                 +
               </Button>
@@ -108,7 +114,7 @@ const PassengersPopup = ({ props, show, handleClose }) => {
         ))}
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={handleClose} style={{ backgroundColor: " #4B1979" }}>
+        <Button onClick={handleSave} style={{ backgroundColor: "#4B1979" }}>
           Simpan
         </Button>
       </Modal.Footer>
