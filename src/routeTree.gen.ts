@@ -16,9 +16,16 @@ import { Route as rootRoute } from './routes/__root'
 
 // Create Virtual Routes
 
+const ChooseLazyImport = createFileRoute('/choose')()
 const IndexLazyImport = createFileRoute('/')()
 
 // Create/Update Routes
+
+const ChooseLazyRoute = ChooseLazyImport.update({
+  id: '/choose',
+  path: '/choose',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/choose.lazy').then((d) => d.Route))
 
 const IndexLazyRoute = IndexLazyImport.update({
   id: '/',
@@ -37,6 +44,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexLazyImport
       parentRoute: typeof rootRoute
     }
+    '/choose': {
+      id: '/choose'
+      path: '/choose'
+      fullPath: '/choose'
+      preLoaderRoute: typeof ChooseLazyImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -44,32 +58,37 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexLazyRoute
+  '/choose': typeof ChooseLazyRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexLazyRoute
+  '/choose': typeof ChooseLazyRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexLazyRoute
+  '/choose': typeof ChooseLazyRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/choose'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/choose'
+  id: '__root__' | '/' | '/choose'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexLazyRoute: typeof IndexLazyRoute
+  ChooseLazyRoute: typeof ChooseLazyRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexLazyRoute: IndexLazyRoute,
+  ChooseLazyRoute: ChooseLazyRoute,
 }
 
 export const routeTree = rootRoute
@@ -82,11 +101,15 @@ export const routeTree = rootRoute
     "__root__": {
       "filePath": "__root.jsx",
       "children": [
-        "/"
+        "/",
+        "/choose"
       ]
     },
     "/": {
       "filePath": "index.lazy.jsx"
+    },
+    "/choose": {
+      "filePath": "choose.lazy.jsx"
     }
   }
 }

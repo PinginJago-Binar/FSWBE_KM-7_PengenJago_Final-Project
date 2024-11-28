@@ -9,6 +9,8 @@ const StyledCalendar = styled(Calendar)`
   .rmdp-week-day {
     color: #8a8a8a !important; /* Ganti warna hari-hari dalam minggu */
   }
+  .rmdp {
+  }
 `;
 
 const DatePopup = ({ show, handleClose, onSelectDates }) => {
@@ -26,14 +28,16 @@ const DatePopup = ({ show, handleClose, onSelectDates }) => {
 
   return (
     <Modal show={show} onHide={handleClose} centered>
-      <StyledCalendar
-        color="purple"
-        value={values}
-        onChange={handleDateChange}
-        range
-        numberOfMonths={2}
-        showOtherDays
-      />
+      <div style={{ width: "100%", maxWidth: "100vw", overflowX: "auto" }}>
+        <StyledCalendar
+          color="purple"
+          value={values}
+          onChange={handleDateChange}
+          range
+          numberOfMonths={2}
+          showOtherDays
+        />
+      </div>
     </Modal>
   );
 };

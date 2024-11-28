@@ -55,16 +55,21 @@ const SearchBox = () => {
   };
   return (
     <>
-      <style>{`
+      {/* <style>{`
 
-  .custom-input::placeholder {
-    color: #7126B5; 
-    font-size: 1vw; 
-    font-weight: 600; 
+  // .custom-input::placeholder {
+  
+  //   // font-size: 0.3vw; 
+  //   // font-weight: 600; 
 
 
-  }
-`}</style>
+  // }
+//   .custom-input {
+//   white-space: nowrap;
+//   overflow: hidden;
+//   text-overflow: ellipsis;
+// }
+`}</style> */}
       <div>
         <Row className="justify-content-center">
           <Col md={12} sm={12} xs={12}>
@@ -111,6 +116,8 @@ const SearchBox = () => {
                         outline: "none",
                         boxShadow: "none",
                         cursor: "pointer",
+                        fontSize: "2vw",
+                        color: "#7126B5" || "#FFFFFF",
                       }}
                     />
                   </Form.Group>
@@ -152,6 +159,8 @@ const SearchBox = () => {
                         outline: "none",
                         boxShadow: "none",
                         cursor: "pointer",
+                        fontSize: "2vw",
+                        color: "#7126B5" || "#FFFFFF",
                       }}
                     />
                   </Form.Group>
@@ -202,6 +211,8 @@ const SearchBox = () => {
                             outline: "none",
                             boxShadow: "none",
                             cursor: "pointer",
+                            fontSize: "1.4vw",
+                            color: "#7126B5" || "#FFFFFF",
                           }}
                         />
                       </Form.Group>
@@ -243,6 +254,8 @@ const SearchBox = () => {
                             borderRadius: 0,
                             outline: "none",
                             boxShadow: "none",
+                            fontSize: "1.4vw",
+                            color: "#7126B5" || "#FFFFFF",
                             cursor: isReturnEnabled ? "pointer" : "not-allowed",
                           }}
                         />
@@ -311,6 +324,8 @@ const SearchBox = () => {
                           outline: "none",
                           boxShadow: "none",
                           cursor: "pointer",
+                          fontSize: "1.4vw",
+                          color: "#7126B5" || "#FFFFFF",
                         }}
                       />
                     </Form.Group>
@@ -346,6 +361,8 @@ const SearchBox = () => {
                           outline: "none",
                           boxShadow: "none",
                           cursor: "pointer",
+                          fontSize: "1.4vw",
+                          color: "#7126B5" || "#FFFFFF",
                         }}
                       />
                     </Form.Group>
@@ -391,14 +408,6 @@ const SearchBox = () => {
           onSelectDate={(date) => setSelectedDepartureDate(date)} // Simpan tanggal yang dipilih
         />
       )}
-      <DestinationPopup
-        show={modalShow}
-        handleClose={() => setModalShow(false)}
-        onSelectCity={(city) => {
-          setSelectedDepartureCity(city); // Set kota yang dipilih
-          setModalShow(false); // Tutup modal
-        }}
-      />
 
       <ClassPopup
         show={ClassModalShow}
@@ -411,10 +420,18 @@ const SearchBox = () => {
         handleClose={() => setPassengersModalShow(false)}
         onSelectCounts={handleSelectCounts} // Kirim fungsi untuk menyimpan data penumpang
       />
+      <DestinationPopup
+        show={modalShow}
+        handleClose={() => setModalShow(false)}
+        onSelectCity={(city) => {
+          setSelectedDepartureCity(city); // Set kota yang dipilih
+          setModalShow(false); // Tutup modal
+        }}
+      />
 
       <ReturnPopup
         show={returnmodalShow}
-        handleClose={() => setModalShow(false)}
+        handleClose={() => setReturnModalShow(false)}
         onSelectCity={(city) => {
           setSelectedReturnCity(city); // Set kota yang dipilih
           setReturnModalShow(false); // Tutup modal
