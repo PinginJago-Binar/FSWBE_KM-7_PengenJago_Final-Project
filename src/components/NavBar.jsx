@@ -15,7 +15,7 @@ const NavBar = () => {
       <Container>
         {/* Brand */}
         <Navbar.Brand href="/" className="text-primary">
-          <Image src="./public/logo.png" fluid />
+          <Image src="./logo.png" fluid />
         </Navbar.Brand>
 
         {/* Toggle Button */}

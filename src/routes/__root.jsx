@@ -6,6 +6,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import NavBar from "../components/NavBar";
+
 export const Route = createRootRoute({
   component: () => {
     return (
