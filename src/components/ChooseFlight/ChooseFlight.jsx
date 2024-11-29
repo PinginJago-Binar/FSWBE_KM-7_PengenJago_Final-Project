@@ -8,7 +8,8 @@ import {
   Modal,
   ListGroup,
 } from "react-bootstrap";
-
+import { format } from "date-fns";
+import { id } from "date-fns/locale";
 // Data dummy penerbangan
 const flightData = [
   {
@@ -302,174 +303,288 @@ function ChooseFlight() {
     setShowModal(false);
   };
 
+  const formatDate = (date) => {
+    return format(new Date(date), "d MMMM yyyy", { locale: id });
+  };
+
   // Filter flights based on the selected date
   const filteredFlights = sortedFlights.filter(
     (flight) => flight.date === selectedDay
   );
 
   return (
-    <Container className="mt-4">
-      {/* Header */}
+    <>
+      <style>{`
+      
 
-      <Row style={{ fontSize: 20, fontWeight: "bold" }} className="mb-5">
-        Pilih Penerbangan
-      </Row>
-      <Row className="d-flex justify-content-between align-items-center mb-3 w-100">
-        <Col md={10}>
-          <Button
-            style={{ backgroundColor: "rgba(160, 110, 206, 1)" }}
-            className="me-3 w-100 d-flex float-start align-items-center"
+      
+      `}</style>
+      <Container className="mt-4">
+        {/* Header */}
+
+        <Row style={{ fontSize: 20, fontWeight: "bold" }} className="mb-5">
+          Pilih Penerbangan
+        </Row>
+        <Row className="d-flex justify-content-between align-items-center mb-3 ">
+          <Col md={9}>
+            <Button
+              style={{ backgroundColor: "rgba(160, 110, 206, 1)" }}
+              className="me-3 w-100 d-flex float-start align-items-center"
+            >
+              {"<-"} JKT {">"} MLB - 2 Penumpang - Economy
+            </Button>
+          </Col>
+          <Col md={3} className="d-flex justify-content-end align-items-end ">
+            <Button
+              variant="success"
+              className="w-100"
+              style={{ backgroundColor: "rgba(115, 202, 92, 1)" }}
+            >
+              Ubah Pencarian
+            </Button>
+          </Col>
+        </Row>
+
+        {/* Navigation Dates */}
+        <Row className="mb-4">
+          <Col
+            md={12}
+            className="text-center d-flex justify-content-center flex-wrap gap-1"
           >
-            {"<-"} JKT {">"} MLB - 2 Penumpang - Economy
-          </Button>
-        </Col>
-        <Col md={2} className="d-flex justify-content-end align-items-end">
-          <Button variant="success" className="w-100">
-            Ubah Pencarian
-          </Button>
-        </Col>
-      </Row>
-
-      {/* Navigation Dates */}
-      <Row className="mb-4">
-        <Col
-          md={12}
-          className="text-center d-flex justify-content-center flex-wrap gap-1"
-        >
-          {[
-            { day: "Selasa", date: "2023-03-01" },
-            { day: "Rabu", date: "2023-03-02" },
-            { day: "Kamis", date: "2023-03-03" },
-            { day: "Jumat", date: "2023-03-04" },
-            { day: "Sabtu", date: "2023-03-05" },
-            { day: "Minggu", date: "2023-03-06" },
-            { day: "Senin", date: "2023-03-07" },
-            { day: "Selasa", date: "2023-03-08" },
-          ].map((item, idx) => (
-            <Button
-              key={idx}
-              variant={
-                selectedDay === item.date ? "primary" : "outline-secondary"
-              }
-              onClick={() => setSelectedDay(item.date)}
-            >
-              <span>{item.day}</span> <br />
-              <small>{item.date}</small>
-            </Button>
-          ))}
-        </Col>
-      </Row>
-
-      {/* Main Content */}
-      <Row>
-        {/* Filter Section */}
-        <Col md={3} className="mb-3"></Col>
-
-        {/* Flight Results */}
-        <Col md={9}>
-          {/* Sort Button */}
-          <div className="d-flex align-items-center mb-3">
-            <Button
-              variant="outline-primary"
-              onClick={() => setShowModal(true)}
-              className="float-right"
-            >
-              {selectedSort.split(" - ")[1] || "Pilih Penyortiran"}{" "}
-              {/* Menampilkan hanya bagian setelah " - " */}
-            </Button>
-          </div>
-
-          {/* Accordion for Flights */}
-          <Accordion>
-            {filteredFlights.map((flight, idx) => (
-              <Accordion.Item eventKey={idx} key={flight.id} className="mb-3">
-                <Accordion.Header>
-                  <div className="d-flex justify-content-between w-100">
-                    <div>
-                      <strong>{flight.airline}</strong> - {flight.class} <br />
-                      <small>
-                        {flight.departureTime} ➜ {flight.arrivalTime} | Durasi:{" "}
-                        {flight.duration}
-                      </small>
-                    </div>
-                    <div className="text-end">
-                      <strong>IDR {flight.price.toLocaleString()}</strong>
-                    </div>
-                  </div>
-                </Accordion.Header>
-                <Accordion.Body>
-                  <Row>
-                    <Col>
-                      <p>
-                        <strong>Detail Penerbangan:</strong>
-                      </p>
-                      <ul>
-                        <li>
-                          Waktu: {flight.departureTime} ➜ {flight.arrivalTime}
-                        </li>
-                        <li>Keberangkatan: {flight.departureAirport}</li>
-                        <li>Tujuan: {flight.arrivalAirport}</li>
-                      </ul>
-                      <p>
-                        <strong>Informasi:</strong>
-                      </p>
-                      <ul>
-                        <li>Bagasi: {flight.baggage}</li>
-                        <li>Bagasi Kabin: {flight.cabinBaggage}</li>
-                        <li>{flight.entertainment}</li>
-                      </ul>
-                    </Col>
-                    <Col className="text-end">
-                      <Button variant="primary">Pilih</Button>
-                    </Col>
-                  </Row>
-                </Accordion.Body>
-              </Accordion.Item>
-            ))}
-          </Accordion>
-        </Col>
-      </Row>
-
-      {/* Sort Modal */}
-      <Modal show={showModal} onHide={() => setShowModal(false)} centered>
-        <Modal.Header closeButton>
-          <Modal.Title>Urutkan Berdasarkan</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <ListGroup>
             {[
-              { label: "Termurah", value: "Harga - Termurah" },
-              { label: "Terpendek", value: "Durasi - Terpendek" },
-              { label: "Paling Awal", value: "Keberangkatan - Paling Awal" },
-              { label: "Paling Akhir", value: "Keberangkatan - Paling Akhir" },
-              { label: "Paling Awal", value: "Kedatangan - Paling Awal" },
-              { label: "Paling Akhir", value: "Kedatangan - Paling Akhir" },
-            ].map((sortOption, idx) => (
-              <ListGroup.Item
+              { day: "Selasa", date: "2023-03-01" },
+              { day: "Rabu", date: "2023-03-02" },
+              { day: "Kamis", date: "2023-03-03" },
+              { day: "Jumat", date: "2023-03-04" },
+              { day: "Sabtu", date: "2023-03-05" },
+              { day: "Minggu", date: "2023-03-06" },
+              { day: "Senin", date: "2023-03-07" },
+              { day: "Selasa", date: "2023-03-08" },
+            ].map((item, idx, array) => (
+              <div
                 key={idx}
-                action
-                onClick={() => handleSortChange(sortOption.value)}
-                className={
-                  selectedSort === sortOption.value
-                    ? "d-flex justify-content-between align-items-center bg-light"
-                    : "d-flex justify-content-between align-items-center"
-                }
+                className={`d-flex align-items-center ${
+                  idx < array.length - 1 ? "custom-border-end" : ""
+                } px-2`}
               >
-                {sortOption.label} {/* Menampilkan label yang lebih pendek */}
-                {selectedSort === sortOption.value && (
-                  <span className="text-success ms-2">✔</span>
-                )}
-              </ListGroup.Item>
+                <Button
+                  variant={
+                    selectedDay === item.date ? "primary" : "outline-secondary"
+                  }
+                  onClick={() => setSelectedDay(item.date)}
+                  className="text-center"
+                >
+                  <span>{item.day}</span> <br />
+                  <small>{item.date}</small>
+                </Button>
+              </div>
             ))}
-          </ListGroup>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="primary" onClick={() => setShowModal(false)}>
-            Pilih
-          </Button>
-        </Modal.Footer>
-      </Modal>
-    </Container>
+            <style jsx>{`
+              .custom-border-end {
+                position: relative;
+              }
+
+              .custom-border-end::after {
+                content: "";
+                position: absolute;
+                right: 0;
+                top: 15%; /* Offset 15% dari atas */
+                height: 70%; /* Tinggi 70% dari kontainer */
+                border-right: 1px solid #ccc;
+              }
+            `}</style>
+          </Col>
+        </Row>
+
+        {/* Main Content */}
+        <Row>
+          {/* Filter Section */}
+          <Col md={3} className="mb-3"></Col>
+
+          {/* Flight Results */}
+          <Col md={9}>
+            {/* Sort Button */}
+            <div className="d-flex align-items-center mb-3 w-100">
+              <Button
+                variant="outline-primary"
+                onClick={() => setShowModal(true)}
+                className="ms-auto"
+              >
+                <img src="prefixwrapper.png" alt="" />
+                {selectedSort.split(" - ")[1]}{" "}
+                {/* Menampilkan hanya bagian setelah " - " */}
+              </Button>
+            </div>
+
+            {/* Accordion for Flights */}
+            {filteredFlights.map((flight, idx) => (
+              <Accordion>
+                <Accordion.Item eventKey={idx} key={flight.id} className="mb-3">
+                  <Accordion.Header>
+                    <div className="d-flex justify-content-between w-100 flex-wrap">
+                      <div>
+                        <img src="Thumbnail.png" alt="" />{" "}
+                        <strong>{flight.airline}</strong> - {flight.class}{" "}
+                        <br />
+                        <small>
+                          {flight.departureTime} ➜ {flight.arrivalTime} |
+                          Durasi: {flight.duration}
+                        </small>
+                      </div>
+                      <div className="d-flex flex-column gap-1">
+                        <strong>IDR {flight.price.toLocaleString()}</strong>
+                        <Button variant="primary" classNa>
+                          Pilih
+                        </Button>
+                      </div>
+                    </div>
+                  </Accordion.Header>
+                  <Accordion.Body>
+                    <Row>
+                      <Col>
+                        <p style={{ color: "rgba(75, 25, 121, 1)" }}>
+                          <strong>Detail Penerbangan</strong>
+                        </p>
+                      </Col>
+                    </Row>
+                    <Row>
+                      <Col className="d-flex">
+                        <p>
+                          <strong>{flight.departureTime}</strong>
+                        </p>
+                        <p
+                          style={{ color: "rgba(160, 110, 206, 1)" }}
+                          className="ms-auto"
+                        >
+                          Keberangkatan
+                        </p>
+                      </Col>
+                    </Row>
+                    <Row>
+                      <p>{formatDate(flight.date)}</p>
+                      <p>{flight.departureAirport}</p>
+                      <hr style={{ width: "50%", margin: "0 auto" }}></hr>
+                    </Row>
+                    <Row className="d-flex flex-column">
+                      {/* Baris untuk nama maskapai dan nomor penerbangan */}
+                      <Col>
+                        <div className="d-flex align-items-start gap-2">
+                          <img
+                            src="Thumbnail.png"
+                            alt="Thumbnail"
+                            style={{
+                              width: "20px",
+                              height: "20px",
+                              opacity: "0",
+                            }}
+                          />
+                          <div>
+                            <ul
+                              className="mb-0 ps-0"
+                              style={{ listStyle: "none", fontWeight: "bold" }}
+                            >
+                              <li>Jet Air - Economy</li>
+                              <li>JT - 203</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </Col>
+                      <br></br>
+
+                      {/* Baris untuk ikon dan informasi */}
+                      <Col>
+                        <div className="d-flex align-items-start gap-2">
+                          <img
+                            src="Thumbnail.png"
+                            alt="Thumbnail"
+                            style={{ width: "20px", height: "20px" }}
+                          />
+                          <div>
+                            <strong className="d-block mb-1">
+                              Informasi :
+                            </strong>
+                            <ul
+                              className="mb-0 ps-0"
+                              style={{ listStyle: "none" }}
+                            >
+                              <li>Baggage 20 kg</li>
+                              <li>Cabin baggage 7 kg</li>
+                              <li>In Flight Entertainment</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </Col>
+                      <br></br>
+                      <hr style={{ width: "50%", margin: "0 auto" }}></hr>
+                    </Row>
+                    <Row>
+                      <Col className="d-flex">
+                        <p>
+                          <strong>{flight.arrivalTime}</strong>
+                        </p>
+                        <p
+                          style={{ color: "rgba(160, 110, 206, 1)" }}
+                          className="ms-auto"
+                        >
+                          Kedatangan
+                        </p>
+                      </Col>
+                    </Row>
+                    <Row>
+                      <p>{formatDate(flight.date)}</p>
+                      <p>{flight.arrivalAirport}</p>
+                    </Row>
+                  </Accordion.Body>
+                </Accordion.Item>
+              </Accordion>
+            ))}
+          </Col>
+        </Row>
+
+        {/* Sort Modal */}
+        <Modal show={showModal} onHide={() => setShowModal(false)} centered>
+          <Modal.Header closeButton>
+            <Modal.Title>Urutkan Berdasarkan</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <ListGroup>
+              {[
+                { label: "Termurah", value: "Harga - Termurah" },
+                { label: "Terpendek", value: "Durasi - Terpendek" },
+                { label: "Paling Awal", value: "Keberangkatan - Paling Awal" },
+                {
+                  label: "Paling Akhir",
+                  value: "Keberangkatan - Paling Akhir",
+                },
+                { label: "Paling Awal", value: "Kedatangan - Paling Awal" },
+                { label: "Paling Akhir", value: "Kedatangan - Paling Akhir" },
+              ].map((sortOption, idx) => (
+                <ListGroup.Item
+                  key={idx}
+                  action
+                  onClick={() => handleSortChange(sortOption.value)}
+                  className={
+                    selectedSort === sortOption.value
+                      ? "d-flex justify-content-between align-items-center bg-light"
+                      : "d-flex justify-content-between align-items-center"
+                  }
+                >
+                  {sortOption.value} {/* Menampilkan label yang lebih pendek */}
+                  {selectedSort === sortOption.value && (
+                    <span className="text-success ms-2">✔</span>
+                  )}
+                </ListGroup.Item>
+              ))}
+            </ListGroup>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="primary" onClick={() => setShowModal(false)}>
+              Pilih
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      </Container>
+    </>
   );
 }
 
