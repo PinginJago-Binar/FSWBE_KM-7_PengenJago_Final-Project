@@ -1,23 +1,21 @@
 import * as React from "react";
-//import { OTPInput, OTPInputContext } from "inputOtp"; 
+//import { OTPInput, OTPInputContext } from "inputOtp";
 import { Dot } from "lucide-react";
 
-import { cn } from "@/lib/utils"; 
+import { cn } from "@/lib/utils";
 
 // InputOTP Component
-const inputOTP = React.forwardRef(
-  (props, ref) => (
-    <OTPInput
-      ref={ref}
-      containerClassName={cn(
-        "flex items-center gap-2 has-[:disabled]:opacity-50",
-        props.containerClassName
-      )}
-      className={cn("disabled:cursor-not-allowed", props.className)}
-      {...props}
-    />
-  )
-);
+const inputOTP = React.forwardRef((props, ref) => (
+  <OTPInput
+    ref={ref}
+    containerClassName={cn(
+      "flex items-center gap-2 has-[:disabled]:opacity-50",
+      props.containerClassName
+    )}
+    className={cn("disabled:cursor-not-allowed", props.className)}
+    {...props}
+  />
+));
 inputOTP.displayName = "InputOTP";
 
 // InputOTPGroup Component

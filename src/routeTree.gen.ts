@@ -16,52 +16,61 @@ import { Route as rootRoute } from './routes/__root'
 
 // Create Virtual Routes
 
-const RegisterLazyImport = createFileRoute('/register')()
-const OtpLazyImport = createFileRoute('/otp')()
-const LoginLazyImport = createFileRoute('/login')()
-const ForgetPassReqLazyImport = createFileRoute('/forget-pass-req')()
-const ForgetPassLazyImport = createFileRoute('/forget-pass')()
+const ChooseLazyImport = createFileRoute('/choose')()
 const IndexLazyImport = createFileRoute('/')()
+const AuthRegisterLazyImport = createFileRoute('/auth/register')()
+const AuthOtpLazyImport = createFileRoute('/auth/otp')()
+const AuthLoginLazyImport = createFileRoute('/auth/login')()
+const AuthForgetPassReqLazyImport = createFileRoute('/auth/forget-pass-req')()
+const AuthForgetPassLazyImport = createFileRoute('/auth/forget-pass')()
 
 // Create/Update Routes
 
-const RegisterLazyRoute = RegisterLazyImport.update({
-  id: '/register',
-  path: '/register',
+const ChooseLazyRoute = ChooseLazyImport.update({
+  id: '/choose',
+  path: '/choose',
   getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/register.lazy').then((d) => d.Route))
-
-const OtpLazyRoute = OtpLazyImport.update({
-  id: '/otp',
-  path: '/otp',
-  getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/otp.lazy').then((d) => d.Route))
-
-const LoginLazyRoute = LoginLazyImport.update({
-  id: '/login',
-  path: '/login',
-  getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/login.lazy').then((d) => d.Route))
-
-const ForgetPassReqLazyRoute = ForgetPassReqLazyImport.update({
-  id: '/forget-pass-req',
-  path: '/forget-pass-req',
-  getParentRoute: () => rootRoute,
-} as any).lazy(() =>
-  import('./routes/forget-pass-req.lazy').then((d) => d.Route),
-)
-
-const ForgetPassLazyRoute = ForgetPassLazyImport.update({
-  id: '/forget-pass',
-  path: '/forget-pass',
-  getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/forget-pass.lazy').then((d) => d.Route))
+} as any).lazy(() => import('./routes/choose.lazy').then((d) => d.Route))
 
 const IndexLazyRoute = IndexLazyImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/index.lazy').then((d) => d.Route))
+
+const AuthRegisterLazyRoute = AuthRegisterLazyImport.update({
+  id: '/auth/register',
+  path: '/auth/register',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/auth/register.lazy').then((d) => d.Route))
+
+const AuthOtpLazyRoute = AuthOtpLazyImport.update({
+  id: '/auth/otp',
+  path: '/auth/otp',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/auth/otp.lazy').then((d) => d.Route))
+
+const AuthLoginLazyRoute = AuthLoginLazyImport.update({
+  id: '/auth/login',
+  path: '/auth/login',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/auth/login.lazy').then((d) => d.Route))
+
+const AuthForgetPassReqLazyRoute = AuthForgetPassReqLazyImport.update({
+  id: '/auth/forget-pass-req',
+  path: '/auth/forget-pass-req',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() =>
+  import('./routes/auth/forget-pass-req.lazy').then((d) => d.Route),
+)
+
+const AuthForgetPassLazyRoute = AuthForgetPassLazyImport.update({
+  id: '/auth/forget-pass',
+  path: '/auth/forget-pass',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() =>
+  import('./routes/auth/forget-pass.lazy').then((d) => d.Route),
+)
 
 // Populate the FileRoutesByPath interface
 
@@ -74,39 +83,46 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexLazyImport
       parentRoute: typeof rootRoute
     }
-    '/forget-pass': {
-      id: '/forget-pass'
-      path: '/forget-pass'
-      fullPath: '/forget-pass'
-      preLoaderRoute: typeof ForgetPassLazyImport
+    '/choose': {
+      id: '/choose'
+      path: '/choose'
+      fullPath: '/choose'
+      preLoaderRoute: typeof ChooseLazyImport
       parentRoute: typeof rootRoute
     }
-    '/forget-pass-req': {
-      id: '/forget-pass-req'
-      path: '/forget-pass-req'
-      fullPath: '/forget-pass-req'
-      preLoaderRoute: typeof ForgetPassReqLazyImport
+    '/auth/forget-pass': {
+      id: '/auth/forget-pass'
+      path: '/auth/forget-pass'
+      fullPath: '/auth/forget-pass'
+      preLoaderRoute: typeof AuthForgetPassLazyImport
       parentRoute: typeof rootRoute
     }
-    '/login': {
-      id: '/login'
-      path: '/login'
-      fullPath: '/login'
-      preLoaderRoute: typeof LoginLazyImport
+    '/auth/forget-pass-req': {
+      id: '/auth/forget-pass-req'
+      path: '/auth/forget-pass-req'
+      fullPath: '/auth/forget-pass-req'
+      preLoaderRoute: typeof AuthForgetPassReqLazyImport
       parentRoute: typeof rootRoute
     }
-    '/otp': {
-      id: '/otp'
-      path: '/otp'
-      fullPath: '/otp'
-      preLoaderRoute: typeof OtpLazyImport
+    '/auth/login': {
+      id: '/auth/login'
+      path: '/auth/login'
+      fullPath: '/auth/login'
+      preLoaderRoute: typeof AuthLoginLazyImport
       parentRoute: typeof rootRoute
     }
-    '/register': {
-      id: '/register'
-      path: '/register'
-      fullPath: '/register'
-      preLoaderRoute: typeof RegisterLazyImport
+    '/auth/otp': {
+      id: '/auth/otp'
+      path: '/auth/otp'
+      fullPath: '/auth/otp'
+      preLoaderRoute: typeof AuthOtpLazyImport
+      parentRoute: typeof rootRoute
+    }
+    '/auth/register': {
+      id: '/auth/register'
+      path: '/auth/register'
+      fullPath: '/auth/register'
+      preLoaderRoute: typeof AuthRegisterLazyImport
       parentRoute: typeof rootRoute
     }
   }
@@ -116,76 +132,84 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexLazyRoute
-  '/forget-pass': typeof ForgetPassLazyRoute
-  '/forget-pass-req': typeof ForgetPassReqLazyRoute
-  '/login': typeof LoginLazyRoute
-  '/otp': typeof OtpLazyRoute
-  '/register': typeof RegisterLazyRoute
+  '/choose': typeof ChooseLazyRoute
+  '/auth/forget-pass': typeof AuthForgetPassLazyRoute
+  '/auth/forget-pass-req': typeof AuthForgetPassReqLazyRoute
+  '/auth/login': typeof AuthLoginLazyRoute
+  '/auth/otp': typeof AuthOtpLazyRoute
+  '/auth/register': typeof AuthRegisterLazyRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexLazyRoute
-  '/forget-pass': typeof ForgetPassLazyRoute
-  '/forget-pass-req': typeof ForgetPassReqLazyRoute
-  '/login': typeof LoginLazyRoute
-  '/otp': typeof OtpLazyRoute
-  '/register': typeof RegisterLazyRoute
+  '/choose': typeof ChooseLazyRoute
+  '/auth/forget-pass': typeof AuthForgetPassLazyRoute
+  '/auth/forget-pass-req': typeof AuthForgetPassReqLazyRoute
+  '/auth/login': typeof AuthLoginLazyRoute
+  '/auth/otp': typeof AuthOtpLazyRoute
+  '/auth/register': typeof AuthRegisterLazyRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexLazyRoute
-  '/forget-pass': typeof ForgetPassLazyRoute
-  '/forget-pass-req': typeof ForgetPassReqLazyRoute
-  '/login': typeof LoginLazyRoute
-  '/otp': typeof OtpLazyRoute
-  '/register': typeof RegisterLazyRoute
+  '/choose': typeof ChooseLazyRoute
+  '/auth/forget-pass': typeof AuthForgetPassLazyRoute
+  '/auth/forget-pass-req': typeof AuthForgetPassReqLazyRoute
+  '/auth/login': typeof AuthLoginLazyRoute
+  '/auth/otp': typeof AuthOtpLazyRoute
+  '/auth/register': typeof AuthRegisterLazyRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/forget-pass'
-    | '/forget-pass-req'
-    | '/login'
-    | '/otp'
-    | '/register'
+    | '/choose'
+    | '/auth/forget-pass'
+    | '/auth/forget-pass-req'
+    | '/auth/login'
+    | '/auth/otp'
+    | '/auth/register'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/forget-pass'
-    | '/forget-pass-req'
-    | '/login'
-    | '/otp'
-    | '/register'
+    | '/choose'
+    | '/auth/forget-pass'
+    | '/auth/forget-pass-req'
+    | '/auth/login'
+    | '/auth/otp'
+    | '/auth/register'
   id:
     | '__root__'
     | '/'
-    | '/forget-pass'
-    | '/forget-pass-req'
-    | '/login'
-    | '/otp'
-    | '/register'
+    | '/choose'
+    | '/auth/forget-pass'
+    | '/auth/forget-pass-req'
+    | '/auth/login'
+    | '/auth/otp'
+    | '/auth/register'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexLazyRoute: typeof IndexLazyRoute
-  ForgetPassLazyRoute: typeof ForgetPassLazyRoute
-  ForgetPassReqLazyRoute: typeof ForgetPassReqLazyRoute
-  LoginLazyRoute: typeof LoginLazyRoute
-  OtpLazyRoute: typeof OtpLazyRoute
-  RegisterLazyRoute: typeof RegisterLazyRoute
+  ChooseLazyRoute: typeof ChooseLazyRoute
+  AuthForgetPassLazyRoute: typeof AuthForgetPassLazyRoute
+  AuthForgetPassReqLazyRoute: typeof AuthForgetPassReqLazyRoute
+  AuthLoginLazyRoute: typeof AuthLoginLazyRoute
+  AuthOtpLazyRoute: typeof AuthOtpLazyRoute
+  AuthRegisterLazyRoute: typeof AuthRegisterLazyRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexLazyRoute: IndexLazyRoute,
-  ForgetPassLazyRoute: ForgetPassLazyRoute,
-  ForgetPassReqLazyRoute: ForgetPassReqLazyRoute,
-  LoginLazyRoute: LoginLazyRoute,
-  OtpLazyRoute: OtpLazyRoute,
-  RegisterLazyRoute: RegisterLazyRoute,
+  ChooseLazyRoute: ChooseLazyRoute,
+  AuthForgetPassLazyRoute: AuthForgetPassLazyRoute,
+  AuthForgetPassReqLazyRoute: AuthForgetPassReqLazyRoute,
+  AuthLoginLazyRoute: AuthLoginLazyRoute,
+  AuthOtpLazyRoute: AuthOtpLazyRoute,
+  AuthRegisterLazyRoute: AuthRegisterLazyRoute,
 }
 
 export const routeTree = rootRoute
@@ -199,30 +223,34 @@ export const routeTree = rootRoute
       "filePath": "__root.jsx",
       "children": [
         "/",
-        "/forget-pass",
-        "/forget-pass-req",
-        "/login",
-        "/otp",
-        "/register"
+        "/choose",
+        "/auth/forget-pass",
+        "/auth/forget-pass-req",
+        "/auth/login",
+        "/auth/otp",
+        "/auth/register"
       ]
     },
     "/": {
       "filePath": "index.lazy.jsx"
     },
-    "/forget-pass": {
-      "filePath": "forget-pass.lazy.jsx"
+    "/choose": {
+      "filePath": "choose.lazy.jsx"
     },
-    "/forget-pass-req": {
-      "filePath": "forget-pass-req.lazy.jsx"
+    "/auth/forget-pass": {
+      "filePath": "auth/forget-pass.lazy.jsx"
     },
-    "/login": {
-      "filePath": "login.lazy.jsx"
+    "/auth/forget-pass-req": {
+      "filePath": "auth/forget-pass-req.lazy.jsx"
     },
-    "/otp": {
-      "filePath": "otp.lazy.jsx"
+    "/auth/login": {
+      "filePath": "auth/login.lazy.jsx"
     },
-    "/register": {
-      "filePath": "register.lazy.jsx"
+    "/auth/otp": {
+      "filePath": "auth/otp.lazy.jsx"
+    },
+    "/auth/register": {
+      "filePath": "auth/register.lazy.jsx"
     }
   }
 }
