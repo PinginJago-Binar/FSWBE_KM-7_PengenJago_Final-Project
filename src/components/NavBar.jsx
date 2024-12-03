@@ -16,8 +16,10 @@ const NavBar = () => {
     <Navbar bg="white" expand="lg" className="shadow-sm">
       <Container>
         {/* Brand */}
+
         <Navbar.Brand as={Link} to="/" className="text-primary">
           <Image src="./public/logo.png" fluid />
+
         </Navbar.Brand>
 
         {/* Toggle Button */}
