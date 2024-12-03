@@ -1,7 +1,14 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import planeLogo from "../../../public/plane-logo-Image.png";
+import FlightData from "../../data/data-detail-checkout.json";
 
 const flightDetail = () => {
+  const [flightData, setFlightData] = useState(null); //MEYNIMPAN DATA YANG DIAMBIL DARI JSON
+
+  useEffect(() => {
+    setFlightData(FlightData.data); // digunakan untuk mengambil data JSON dan menyimpannya ke dalam state
+  }, []);
+
   return (
     <div className=" departureFlight">
       <div className="departureFlightInformation border-bottom border-dark-subtle pb-2">
@@ -15,7 +22,9 @@ const flightDetail = () => {
           </div>
           <div className="departureDate simpleText">3 Maret 2023</div>
           <div className="departureTerminal fw-semibold">
-            Soekarno Hatta - Terminal 1A Domestik
+            Soekarno Hatta -{" "}
+            {flightData?.flights?.departure?.departureTerminal?.name ||
+              "Unknown Terminal"}
           </div>
         </div>
       </div>
