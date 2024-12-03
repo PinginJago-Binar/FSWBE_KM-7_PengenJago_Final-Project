@@ -274,6 +274,7 @@ const SearchBox = () => {
                     type="switch"
                     id="returnSwitch"
                     onChange={handleSwitchChange}
+                    label="PP"
                   />
                 </Col>
                 <Col md={5} className="d-flex align-items-center ">

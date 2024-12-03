@@ -315,10 +315,20 @@ function ChooseFlight() {
   return (
     <>
       <style>{`
-      
-
-      
-      `}</style>
+  @media (max-width: 768px) {
+  .custom-col {
+    flex-direction: row !important; /* Menonaktifkan flex-column */
+    justify-content : space-between;
+  }
+}
+   @media (max-width: 990px) {
+  .custom-div {
+    width: 100%;
+    text-align: center;
+  }
+}
+  
+`}</style>
       <Container className="mt-4">
         {/* Header */}
 
@@ -422,16 +432,83 @@ function ChooseFlight() {
                 <Accordion.Item eventKey={idx} key={flight.id} className="mb-3">
                   <Accordion.Header>
                     <div className="d-flex justify-content-between w-100 flex-wrap">
-                      <div>
-                        <img src="Thumbnail.png" alt="" />{" "}
-                        <strong>{flight.airline}</strong> - {flight.class}{" "}
-                        <br />
-                        <small>
-                          {flight.departureTime} ➜ {flight.arrivalTime} |
-                          Durasi: {flight.duration}
-                        </small>
+                      <div className="d-flex align-items-start gap-2">
+                        <img
+                          src="Thumbnail.png"
+                          alt="Thumbnail"
+                          style={{
+                            width: "20px",
+                            height: "20px",
+                          }}
+                        />
+                        <div>
+                          <ul
+                            className="mb-0 ps-0"
+                            style={{ listStyle: "none" }}
+                          >
+                            <li>Jet Air - Economy</li>
+                            <br />
+                            <li>
+                              <Row className="d-flex" style={{ width: "100%" }}>
+                                <Col
+                                  md={2}
+                                  sm={12}
+                                  className="d-flex flex-column custom-col"
+                                  style={{ gap: "1px" }}
+                                >
+                                  <div style={{ fontWeight: "bold" }}>
+                                    07.00
+                                  </div>
+                                  <div>JKT</div>
+                                </Col>
+
+                                <Col
+                                  md={7}
+                                  className="d-flex flex-column align-items-center"
+                                >
+                                  <div style={{ fontWeight: "bold" }}>
+                                    4h 0m
+                                  </div>
+                                  <div
+                                    style={{ fontWeight: "bold", margin: 0 }}
+                                  >
+                                    <img
+                                      src="Arrow.png"
+                                      alt="Arrow"
+                                      style={{
+                                        maxWidth: "100%",
+                                        height: "auto",
+                                      }}
+                                    />
+                                  </div>
+                                  <div>Direct</div>
+                                </Col>
+                                <Col
+                                  md={2}
+                                  sm={12}
+                                  className="d-flex flex-column custom-col"
+                                  style={{ gap: "1px" }}
+                                >
+                                  <div style={{ fontWeight: "bold" }}>
+                                    07.00
+                                  </div>
+                                  <div>JKT</div>
+                                </Col>
+                                <Col
+                                  md={1}
+                                  className="d-flex justify-content-center align-items-center"
+                                >
+                                  <img src="bagasi.png" alt="" />
+                                </Col>
+                              </Row>
+                            </li>
+                          </ul>
+                        </div>
                       </div>
-                      <div className="d-flex flex-column gap-1">
+                      <div
+                        className="d-flex flex-column gap-1 custom-div "
+                        style={{ marginTop: "5%" }}
+                      >
                         <strong>IDR {flight.price.toLocaleString()}</strong>
                         <Button variant="primary" classNa>
                           Pilih
