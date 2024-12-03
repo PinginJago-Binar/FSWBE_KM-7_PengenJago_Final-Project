@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import { useEffect } from "react";
 import { createLazyFileRoute } from "@tanstack/react-router";
 import TiketkuImage from "../../assets/img/Logo-Tiketku.png";
 import { OtpInput } from "reactjs-otp-input";
@@ -9,6 +10,11 @@ export const Route = createLazyFileRoute("/auth/otp")({
 
 function OTPInputUI() {
   const [otp, setOtp] = useState("");
+  const [counter, setCounter] = useState(60);
+
+  useEffect(() => {
+    counter > 0 && setTimeout(() => setCounter(counter - 1), 1000);
+  }, [counter]);
 
   const handleChange = (otp) => setOtp(otp);
   return (
@@ -83,7 +89,7 @@ function OTPInputUI() {
           color: "#666",
         }}
       >
-        Kirim Ulang OTP dalam 60 detik
+        Kirim Ulang OTP dalam {counter} detik
       </p>
 
       <button
