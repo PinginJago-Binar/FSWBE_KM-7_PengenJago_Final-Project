@@ -14,7 +14,7 @@ export const Route = createLazyFileRoute("/checkout-biodata")({
 
 function Index() {
   return (
-    <div className="row g-3">
+    <div className="row g-3 m-0">
       <div
         className="border-bottom border-dark p-2 mb-2 border-opacity-10"
         style={{ boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)" }}
