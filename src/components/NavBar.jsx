@@ -1,21 +1,25 @@
-import React, { useState } from "react";
-import { FiList, FiBell, FiUser } from "react-icons/fi";
+import React from "react";
 import { FaUser } from "react-icons/fa";
-import { Navbar, Container, Nav, Button } from "react-bootstrap";
+import {
+  Navbar,
+  Container,
+  Nav,
+  Form,
+  FormControl,
+  Button,
+} from "react-bootstrap";
 import Image from "react-bootstrap/Image";
+import { Link, useNavigate } from "@tanstack/react-router";
 const NavBar = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  const handleLogin = () => {
-    setIsLoggedIn(true);
-  };
-
+  const navigate = useNavigate();
   return (
     <Navbar bg="white" expand="lg" className="shadow-sm">
       <Container>
         {/* Brand */}
-        <Navbar.Brand href="/" className="text-primary">
-          <Image src="./logo.png" fluid />
+
+        <Navbar.Brand as={Link} to="/" className="text-primary">
+          <Image src="./public/logo.png" fluid />
+
         </Navbar.Brand>
 
         {/* Toggle Button */}
@@ -25,27 +29,10 @@ const NavBar = () => {
         <Navbar.Collapse id="navbarContent">
           <Nav className="me-auto">{/* Placeholder for future links */}</Nav>
 
-          {/* Login Button or Icon Group */}
-          {!isLoggedIn ? (
-            <Button
-              variant="primary"
-              style={{
-                backgroundColor: "#7126B5",
-                borderColor: "#7126B5",
-              }}
-              className="d-flex align-items-center"
-              onClick={handleLogin}
-            >
-              <FaUser className="me-2" />
-              Masuk
-            </Button>
-          ) : (
-            <div className="d-flex align-items-center">
-              <FiList size={20} className="me-3" />
-              <FiBell size={20} className="me-3" />
-              <FiUser size={20} />
-            </div>
-          )}
+          <Button variant="primary" className="d-flex align-items-center">
+            <FaUser className="me-2" />
+            Masuk
+          </Button>
         </Navbar.Collapse>
       </Container>
     </Navbar>
