@@ -18,8 +18,11 @@ import { Route as PaymentSuccessImport } from './routes/payment-success'
 // Create Virtual Routes
 
 const PaymentLazyImport = createFileRoute('/payment')()
+const OrderHistoryLazyImport = createFileRoute('/orderHistory')()
+const NotificationsLazyImport = createFileRoute('/notifications')()
 const ChooseLazyImport = createFileRoute('/choose')()
 const CheckoutBiodataLazyImport = createFileRoute('/checkout-biodata')()
+const AkunLazyImport = createFileRoute('/akun')()
 const IndexLazyImport = createFileRoute('/')()
 const AuthRegisterLazyImport = createFileRoute('/auth/register')()
 const AuthOtpLazyImport = createFileRoute('/auth/otp')()
@@ -35,6 +38,18 @@ const PaymentLazyRoute = PaymentLazyImport.update({
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/payment.lazy').then((d) => d.Route))
 
+const OrderHistoryLazyRoute = OrderHistoryLazyImport.update({
+  id: '/orderHistory',
+  path: '/orderHistory',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/orderHistory.lazy').then((d) => d.Route))
+
+const NotificationsLazyRoute = NotificationsLazyImport.update({
+  id: '/notifications',
+  path: '/notifications',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/notifications.lazy').then((d) => d.Route))
+
 const ChooseLazyRoute = ChooseLazyImport.update({
   id: '/choose',
   path: '/choose',
@@ -48,6 +63,12 @@ const CheckoutBiodataLazyRoute = CheckoutBiodataLazyImport.update({
 } as any).lazy(() =>
   import('./routes/checkout-biodata.lazy').then((d) => d.Route),
 )
+
+const AkunLazyRoute = AkunLazyImport.update({
+  id: '/akun',
+  path: '/akun',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/akun.lazy').then((d) => d.Route))
 
 const PaymentSuccessRoute = PaymentSuccessImport.update({
   id: '/payment-success',
@@ -113,6 +134,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PaymentSuccessImport
       parentRoute: typeof rootRoute
     }
+    '/akun': {
+      id: '/akun'
+      path: '/akun'
+      fullPath: '/akun'
+      preLoaderRoute: typeof AkunLazyImport
+      parentRoute: typeof rootRoute
+    }
     '/checkout-biodata': {
       id: '/checkout-biodata'
       path: '/checkout-biodata'
@@ -125,6 +153,20 @@ declare module '@tanstack/react-router' {
       path: '/choose'
       fullPath: '/choose'
       preLoaderRoute: typeof ChooseLazyImport
+      parentRoute: typeof rootRoute
+    }
+    '/notifications': {
+      id: '/notifications'
+      path: '/notifications'
+      fullPath: '/notifications'
+      preLoaderRoute: typeof NotificationsLazyImport
+      parentRoute: typeof rootRoute
+    }
+    '/orderHistory': {
+      id: '/orderHistory'
+      path: '/orderHistory'
+      fullPath: '/orderHistory'
+      preLoaderRoute: typeof OrderHistoryLazyImport
       parentRoute: typeof rootRoute
     }
     '/payment': {
@@ -177,8 +219,11 @@ declare module '@tanstack/react-router' {
 export interface FileRoutesByFullPath {
   '/': typeof IndexLazyRoute
   '/payment-success': typeof PaymentSuccessRoute
+  '/akun': typeof AkunLazyRoute
   '/checkout-biodata': typeof CheckoutBiodataLazyRoute
   '/choose': typeof ChooseLazyRoute
+  '/notifications': typeof NotificationsLazyRoute
+  '/orderHistory': typeof OrderHistoryLazyRoute
   '/payment': typeof PaymentLazyRoute
   '/auth/forget-pass': typeof AuthForgetPassLazyRoute
   '/auth/forget-pass-req': typeof AuthForgetPassReqLazyRoute
@@ -190,8 +235,11 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexLazyRoute
   '/payment-success': typeof PaymentSuccessRoute
+  '/akun': typeof AkunLazyRoute
   '/checkout-biodata': typeof CheckoutBiodataLazyRoute
   '/choose': typeof ChooseLazyRoute
+  '/notifications': typeof NotificationsLazyRoute
+  '/orderHistory': typeof OrderHistoryLazyRoute
   '/payment': typeof PaymentLazyRoute
   '/auth/forget-pass': typeof AuthForgetPassLazyRoute
   '/auth/forget-pass-req': typeof AuthForgetPassReqLazyRoute
@@ -204,8 +252,11 @@ export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexLazyRoute
   '/payment-success': typeof PaymentSuccessRoute
+  '/akun': typeof AkunLazyRoute
   '/checkout-biodata': typeof CheckoutBiodataLazyRoute
   '/choose': typeof ChooseLazyRoute
+  '/notifications': typeof NotificationsLazyRoute
+  '/orderHistory': typeof OrderHistoryLazyRoute
   '/payment': typeof PaymentLazyRoute
   '/auth/forget-pass': typeof AuthForgetPassLazyRoute
   '/auth/forget-pass-req': typeof AuthForgetPassReqLazyRoute
@@ -219,8 +270,11 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/payment-success'
+    | '/akun'
     | '/checkout-biodata'
     | '/choose'
+    | '/notifications'
+    | '/orderHistory'
     | '/payment'
     | '/auth/forget-pass'
     | '/auth/forget-pass-req'
@@ -231,8 +285,11 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/payment-success'
+    | '/akun'
     | '/checkout-biodata'
     | '/choose'
+    | '/notifications'
+    | '/orderHistory'
     | '/payment'
     | '/auth/forget-pass'
     | '/auth/forget-pass-req'
@@ -243,8 +300,11 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/payment-success'
+    | '/akun'
     | '/checkout-biodata'
     | '/choose'
+    | '/notifications'
+    | '/orderHistory'
     | '/payment'
     | '/auth/forget-pass'
     | '/auth/forget-pass-req'
@@ -257,8 +317,11 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexLazyRoute: typeof IndexLazyRoute
   PaymentSuccessRoute: typeof PaymentSuccessRoute
+  AkunLazyRoute: typeof AkunLazyRoute
   CheckoutBiodataLazyRoute: typeof CheckoutBiodataLazyRoute
   ChooseLazyRoute: typeof ChooseLazyRoute
+  NotificationsLazyRoute: typeof NotificationsLazyRoute
+  OrderHistoryLazyRoute: typeof OrderHistoryLazyRoute
   PaymentLazyRoute: typeof PaymentLazyRoute
   AuthForgetPassLazyRoute: typeof AuthForgetPassLazyRoute
   AuthForgetPassReqLazyRoute: typeof AuthForgetPassReqLazyRoute
@@ -270,8 +333,11 @@ export interface RootRouteChildren {
 const rootRouteChildren: RootRouteChildren = {
   IndexLazyRoute: IndexLazyRoute,
   PaymentSuccessRoute: PaymentSuccessRoute,
+  AkunLazyRoute: AkunLazyRoute,
   CheckoutBiodataLazyRoute: CheckoutBiodataLazyRoute,
   ChooseLazyRoute: ChooseLazyRoute,
+  NotificationsLazyRoute: NotificationsLazyRoute,
+  OrderHistoryLazyRoute: OrderHistoryLazyRoute,
   PaymentLazyRoute: PaymentLazyRoute,
   AuthForgetPassLazyRoute: AuthForgetPassLazyRoute,
   AuthForgetPassReqLazyRoute: AuthForgetPassReqLazyRoute,
@@ -292,8 +358,11 @@ export const routeTree = rootRoute
       "children": [
         "/",
         "/payment-success",
+        "/akun",
         "/checkout-biodata",
         "/choose",
+        "/notifications",
+        "/orderHistory",
         "/payment",
         "/auth/forget-pass",
         "/auth/forget-pass-req",
@@ -308,11 +377,20 @@ export const routeTree = rootRoute
     "/payment-success": {
       "filePath": "payment-success.jsx"
     },
+    "/akun": {
+      "filePath": "akun.lazy.jsx"
+    },
     "/checkout-biodata": {
       "filePath": "checkout-biodata.lazy.jsx"
     },
     "/choose": {
       "filePath": "choose.lazy.jsx"
+    },
+    "/notifications": {
+      "filePath": "notifications.lazy.jsx"
+    },
+    "/orderHistory": {
+      "filePath": "orderHistory.lazy.jsx"
     },
     "/payment": {
       "filePath": "payment.lazy.jsx"
