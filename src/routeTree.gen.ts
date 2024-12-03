@@ -16,9 +16,30 @@ import { Route as rootRoute } from './routes/__root'
 
 // Create Virtual Routes
 
+const OrderHistoryLazyImport = createFileRoute('/orderHistory')()
+const NotificationsLazyImport = createFileRoute('/notifications')()
+const AkunLazyImport = createFileRoute('/akun')()
 const IndexLazyImport = createFileRoute('/')()
 
 // Create/Update Routes
+
+const OrderHistoryLazyRoute = OrderHistoryLazyImport.update({
+  id: '/orderHistory',
+  path: '/orderHistory',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/orderHistory.lazy').then((d) => d.Route))
+
+const NotificationsLazyRoute = NotificationsLazyImport.update({
+  id: '/notifications',
+  path: '/notifications',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/notifications.lazy').then((d) => d.Route))
+
+const AkunLazyRoute = AkunLazyImport.update({
+  id: '/akun',
+  path: '/akun',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/akun.lazy').then((d) => d.Route))
 
 const IndexLazyRoute = IndexLazyImport.update({
   id: '/',
@@ -37,6 +58,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexLazyImport
       parentRoute: typeof rootRoute
     }
+    '/akun': {
+      id: '/akun'
+      path: '/akun'
+      fullPath: '/akun'
+      preLoaderRoute: typeof AkunLazyImport
+      parentRoute: typeof rootRoute
+    }
+    '/notifications': {
+      id: '/notifications'
+      path: '/notifications'
+      fullPath: '/notifications'
+      preLoaderRoute: typeof NotificationsLazyImport
+      parentRoute: typeof rootRoute
+    }
+    '/orderHistory': {
+      id: '/orderHistory'
+      path: '/orderHistory'
+      fullPath: '/orderHistory'
+      preLoaderRoute: typeof OrderHistoryLazyImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -44,32 +86,47 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexLazyRoute
+  '/akun': typeof AkunLazyRoute
+  '/notifications': typeof NotificationsLazyRoute
+  '/orderHistory': typeof OrderHistoryLazyRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexLazyRoute
+  '/akun': typeof AkunLazyRoute
+  '/notifications': typeof NotificationsLazyRoute
+  '/orderHistory': typeof OrderHistoryLazyRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexLazyRoute
+  '/akun': typeof AkunLazyRoute
+  '/notifications': typeof NotificationsLazyRoute
+  '/orderHistory': typeof OrderHistoryLazyRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/akun' | '/notifications' | '/orderHistory'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/akun' | '/notifications' | '/orderHistory'
+  id: '__root__' | '/' | '/akun' | '/notifications' | '/orderHistory'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexLazyRoute: typeof IndexLazyRoute
+  AkunLazyRoute: typeof AkunLazyRoute
+  NotificationsLazyRoute: typeof NotificationsLazyRoute
+  OrderHistoryLazyRoute: typeof OrderHistoryLazyRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexLazyRoute: IndexLazyRoute,
+  AkunLazyRoute: AkunLazyRoute,
+  NotificationsLazyRoute: NotificationsLazyRoute,
+  OrderHistoryLazyRoute: OrderHistoryLazyRoute,
 }
 
 export const routeTree = rootRoute
@@ -82,11 +139,23 @@ export const routeTree = rootRoute
     "__root__": {
       "filePath": "__root.jsx",
       "children": [
-        "/"
+        "/",
+        "/akun",
+        "/notifications",
+        "/orderHistory"
       ]
     },
     "/": {
       "filePath": "index.lazy.jsx"
+    },
+    "/akun": {
+      "filePath": "akun.lazy.jsx"
+    },
+    "/notifications": {
+      "filePath": "notifications.lazy.jsx"
+    },
+    "/orderHistory": {
+      "filePath": "orderHistory.lazy.jsx"
     }
   }
 }
