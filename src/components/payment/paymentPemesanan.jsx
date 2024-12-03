@@ -1,21 +1,21 @@
 import React, { useState } from "react";
 import { Card, Form, Row, Col } from "react-bootstrap";
-import "./paymentItem.css";
+import "./paymentPemesanan.css";
 
 const BookingForm = () => {
   const [hasLastName, setHasLastName] = useState(true);
 
   return (
     <Card
+      className=""
       style={{
-        width: "30rem",
         padding: "15px",
         border: "1px #3C3C3C solid",
         borderRadius: "12px",
         boxShadow: "0px 4px 8px rgba(0,0,0,0.1)",
       }}
     >
-      <Card.Title style={{ marginBottom: "30px" }}>
+      <Card.Title style={{ marginBottom: "30px", fontWeight: "700" }}>
         Isi Data Pemesanan
       </Card.Title>
       <Card.Subtitle
@@ -33,15 +33,23 @@ const BookingForm = () => {
       <Card.Body>
         <Form style={{ marginTop: "-15px" }}>
           <Form.Group className="mb-3" controlId="fullName">
-            <Form.Label>Nama Lengkap</Form.Label>
-            <Form.Control type="text" placeholder="Nama Lengkap" />
+            <Form.Label className="custom-label">Nama Lengkap</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Nama Lengkap"
+              style={{
+                borderRadius: "8px",
+                padding: "10px",
+                border: "1px black solid",
+              }}
+            />
           </Form.Group>
 
           <Form.Group as={Row} className="mb-3">
-            <Form.Label column sm="8">
+            <Form.Label column sm="8" className="custom-label">
               Punya Nama Keluarga?
             </Form.Label>
-            <Col sm="4" className="text-end">
+            <Col sm="4" className="text-end switch d-flex justify-content-end">
               <Form.Check
                 type="switch"
                 id="hasLastName"
@@ -54,28 +62,51 @@ const BookingForm = () => {
 
           {hasLastName && (
             <Form.Group className="mb-3" controlId="lastName">
-              <Form.Label>Nama Keluarga</Form.Label>
-              <Form.Control type="text" placeholder="Nama Keluarga" />
+              <Form.Label className="custom-label">Nama Keluarga</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Nama Keluarga"
+                style={{
+                  borderRadius: "8px",
+                  padding: "10px",
+                  border: "1px black solid",
+                }}
+              />
             </Form.Group>
           )}
 
           {/* Nomor Telepon */}
           <Form.Group className="mb-3" controlId="phoneNumber">
-            <Form.Label>Nomor Telepon</Form.Label>
-            <Form.Control type="text" placeholder="Nomor Telepon" />
+            <Form.Label className="custom-label">Nomor Telepon</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Nomor Telepon"
+              style={{
+                borderRadius: "8px",
+                padding: "10px",
+                border: "1px black solid",
+              }}
+            />
           </Form.Group>
 
           {/* Email */}
           <Form.Group className="mb-3" controlId="email">
-            <Form.Label>Email</Form.Label>
+            <Form.Label className="custom-label">Email</Form.Label>
             <Form.Control
               type="email"
               placeholder="Contoh: johndoe@gmail.com"
+              style={{
+                borderRadius: "8px",
+                padding: "10px",
+                border: "1px black solid",
+              }}
             />
           </Form.Group>
         </Form>
       </Card.Body>
     </Card>
+
+    // --------------------------------------------------------------------
   );
 };
 

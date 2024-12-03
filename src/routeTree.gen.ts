@@ -13,11 +13,13 @@ import { createFileRoute } from '@tanstack/react-router'
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as PaymentSuccessImport } from './routes/payment-success'
 
 // Create Virtual Routes
 
 const PaymentLazyImport = createFileRoute('/payment')()
-const AboutLazyImport = createFileRoute('/about')()
+const CheckoutBiodataLazyImport = createFileRoute('/checkout-biodata')()
+const IndexLazyImport = createFileRoute('/')()
 
 // Create/Update Routes
 
@@ -27,21 +29,49 @@ const PaymentLazyRoute = PaymentLazyImport.update({
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/payment.lazy').then((d) => d.Route))
 
-const AboutLazyRoute = AboutLazyImport.update({
-  id: '/about',
-  path: '/about',
+const CheckoutBiodataLazyRoute = CheckoutBiodataLazyImport.update({
+  id: '/checkout-biodata',
+  path: '/checkout-biodata',
   getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/about.lazy').then((d) => d.Route))
+} as any).lazy(() =>
+  import('./routes/checkout-biodata.lazy').then((d) => d.Route),
+)
+
+const PaymentSuccessRoute = PaymentSuccessImport.update({
+  id: '/payment-success',
+  path: '/payment-success',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const IndexLazyRoute = IndexLazyImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/index.lazy').then((d) => d.Route))
 
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/about': {
-      id: '/about'
-      path: '/about'
-      fullPath: '/about'
-      preLoaderRoute: typeof AboutLazyImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexLazyImport
+      parentRoute: typeof rootRoute
+    }
+    '/payment-success': {
+      id: '/payment-success'
+      path: '/payment-success'
+      fullPath: '/payment-success'
+      preLoaderRoute: typeof PaymentSuccessImport
+      parentRoute: typeof rootRoute
+    }
+    '/checkout-biodata': {
+      id: '/checkout-biodata'
+      path: '/checkout-biodata'
+      fullPath: '/checkout-biodata'
+      preLoaderRoute: typeof CheckoutBiodataLazyImport
       parentRoute: typeof rootRoute
     }
     '/payment': {
@@ -57,37 +87,47 @@ declare module '@tanstack/react-router' {
 // Create and export the route tree
 
 export interface FileRoutesByFullPath {
-  '/about': typeof AboutLazyRoute
+  '/': typeof IndexLazyRoute
+  '/payment-success': typeof PaymentSuccessRoute
+  '/checkout-biodata': typeof CheckoutBiodataLazyRoute
   '/payment': typeof PaymentLazyRoute
 }
 
 export interface FileRoutesByTo {
-  '/about': typeof AboutLazyRoute
+  '/': typeof IndexLazyRoute
+  '/payment-success': typeof PaymentSuccessRoute
+  '/checkout-biodata': typeof CheckoutBiodataLazyRoute
   '/payment': typeof PaymentLazyRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
-  '/about': typeof AboutLazyRoute
+  '/': typeof IndexLazyRoute
+  '/payment-success': typeof PaymentSuccessRoute
+  '/checkout-biodata': typeof CheckoutBiodataLazyRoute
   '/payment': typeof PaymentLazyRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/about' | '/payment'
+  fullPaths: '/' | '/payment-success' | '/checkout-biodata' | '/payment'
   fileRoutesByTo: FileRoutesByTo
-  to: '/about' | '/payment'
-  id: '__root__' | '/about' | '/payment'
+  to: '/' | '/payment-success' | '/checkout-biodata' | '/payment'
+  id: '__root__' | '/' | '/payment-success' | '/checkout-biodata' | '/payment'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
-  AboutLazyRoute: typeof AboutLazyRoute
+  IndexLazyRoute: typeof IndexLazyRoute
+  PaymentSuccessRoute: typeof PaymentSuccessRoute
+  CheckoutBiodataLazyRoute: typeof CheckoutBiodataLazyRoute
   PaymentLazyRoute: typeof PaymentLazyRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
-  AboutLazyRoute: AboutLazyRoute,
+  IndexLazyRoute: IndexLazyRoute,
+  PaymentSuccessRoute: PaymentSuccessRoute,
+  CheckoutBiodataLazyRoute: CheckoutBiodataLazyRoute,
   PaymentLazyRoute: PaymentLazyRoute,
 }
 
@@ -101,12 +141,20 @@ export const routeTree = rootRoute
     "__root__": {
       "filePath": "__root.jsx",
       "children": [
-        "/about",
+        "/",
+        "/payment-success",
+        "/checkout-biodata",
         "/payment"
       ]
     },
-    "/about": {
-      "filePath": "about.lazy.jsx"
+    "/": {
+      "filePath": "index.lazy.jsx"
+    },
+    "/payment-success": {
+      "filePath": "payment-success.jsx"
+    },
+    "/checkout-biodata": {
+      "filePath": "checkout-biodata.lazy.jsx"
     },
     "/payment": {
       "filePath": "payment.lazy.jsx"

@@ -31,3 +31,18 @@
 .custom-switch .form-check-input:checked:before {
   transform: translateX(25px); /* Gerakkan tombol ke kanan */
 }
+
+/* font color */
+.custom-label {
+  color: #4b1979; /* Warna ungu */
+  font-weight: 700; /* Ketebalan font */
+}
+
+/* Responsif untuk layar di bawah 575px */
+@media (max-width: 576px) {
+  .custom-switch .form-check-input {
+    margin-top: -30px;
+    border-radius: 15px;
+    transition: background-color 0.3s ease-in-out;
+  }
+}
