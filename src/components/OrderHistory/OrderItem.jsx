@@ -1,4 +1,4 @@
-import React, { useState, useEffect, memo } from "react";
+import { useState, useEffect, memo } from "react";
 import PropTypes from "prop-types";
 import { Card, Badge, Row, Col } from "react-bootstrap";
 import Arrow from "../../assets/Arrow.png";

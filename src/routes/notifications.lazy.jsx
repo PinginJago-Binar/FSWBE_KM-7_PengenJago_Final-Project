@@ -66,7 +66,6 @@ function NotificationsList() {
                 display: "flex",
                 alignItems: "center",
               }}
-              onClick={() => setShowModal(true)} 
             >
               <FaFilter />
               Filter

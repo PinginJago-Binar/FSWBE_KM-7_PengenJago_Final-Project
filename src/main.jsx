@@ -5,6 +5,8 @@ import { Provider } from "react-redux";
 import { store } from "./redux/store";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import "bootstrap/dist/css/bootstrap.min.css"; // To apply the bootstrap styling
+import "react-datepicker/dist/react-datepicker.css";
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
 // Import the generated route tree
 import { routeTree } from "./routeTree.gen";

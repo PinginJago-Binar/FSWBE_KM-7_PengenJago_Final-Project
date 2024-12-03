@@ -48,6 +48,37 @@ let data = [
     },
   },
   {
+    id: 1,
+    status: "Issued",
+    bookingCode: "6723y2GHK",
+    duration: "4h 0m",
+    class: "Economy",
+    departure: {
+      city: "Jakarta",
+      date: "5 Maret 2023",
+      time: "19:10",
+    },
+    departureAirport: "Soekarno Hatta - Terminal 1A Domestik",
+    airline: "Jet Air - Economy",
+    flightCode: "JT - 203",
+    passengers: [
+      { name: "Mr. Harry Potter", id: "1234567" },
+      { name: "Miss Hermione", id: "789658" },
+    ],
+    arrival: {
+      city: "Melbourne",
+      date: "5 Maret 2023",
+      time: "23:10",
+    },
+    arrivalAirport: "Melbourne International Airport",
+    pricing: {
+      adults: "IDR 9,550,000",
+      baby: "IDR 0",
+      tax: "IDR 300,000",
+      total: "IDR 9,850,000",
+    },
+  },
+  {
     id: 2,
     status: "Unpaid",
     bookingCode: "46TY834LJ",
