@@ -8,13 +8,25 @@ import "react-confirm-alert/src/react-confirm-alert.css";
 import NavBar from "../components/Navbar/NavBar";
 export const Route = createRootRoute({
   component: () => {
+    const isAuthRoute = location.pathname.startsWith("/auth");
+
     return (
       <>
-        <NavBar />
-        <div id="promo-header-container"></div>
-        <Container>
-          <Outlet />
-        </Container>
+        {isAuthRoute ? (
+          <Container>
+            {/* Render the component for the admin path */}
+            <Outlet />
+          </Container>
+        ) : (
+          <>
+            <NavBar />
+            <div id="promo-header-container"></div>
+            <Container>
+              <Outlet />
+            </Container>
+          </>
+        )}
+
         {/* Debugging tool for router */}
         <TanStackRouterDevtools />
         <ToastContainer theme="colored" />
