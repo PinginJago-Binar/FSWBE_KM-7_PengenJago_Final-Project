@@ -1,90 +1,61 @@
-import React, { useState } from 'react';
-import { Alert, Form, Button } from 'react-bootstrap';
+import React from 'react';
+import { createLazyFileRoute } from '@tanstack/react-router';
+import { Row, Col, Form, Button } from 'react-bootstrap';
+import TiketkuImage from "../assets/img/BG-Tiketku.png";
 
-const ForgetPass = () => {
-    const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
-    const [errorMessage, setErrorMessage] = useState('');
-    const [successMessage, setSuccessMessage] = useState('');
+export const Route = createLazyFileRoute('/forget-pass')({
+  component: ResetPassword,
+});
 
-    // Data dummy untuk simulasi
-    const dummyResponse = {
-        success: true,
-        message: 'Password reset successful. You can now log in.',
-    };
+function ResetPassword() {
+  return (
+    <div
+      style={{
+        display: 'flex',
+        height: '100vh',
+        width: '100vw',
+        backgroundColor: '#EAE7F8',
+      }}
+    >
+      <div
+        style={{
+          flex: 1,
+          backgroundImage: `url(${TiketkuImage})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }}
+      ></div>
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        setErrorMessage('');
-        setSuccessMessage('');
-
-        // Validasi password
-        if (password.length < 8) {
-            setErrorMessage('Password must be at least 8 characters long.');
-            return;
-        }
-
-        if (password !== confirmPassword) {
-            setErrorMessage('Passwords do not match.');
-            return;
-        }
-
-        // Menggunakan data dummy untuk simulasi
-        try {
-            // Simulasi delay menggunakan setTimeout
-            await new Promise((resolve) => setTimeout(resolve, 1000)); // 1 detik
-            const response = dummyResponse;
-
-            if (response.success) {
-                setSuccessMessage(response.message);
-            } else {
-                setErrorMessage('Failed to reset password. Please try again.');
-            }
-        } catch (error) {
-            setErrorMessage('An error occurred. Please try again later.');
-        }
-    };
-
-    return (
-        <div className="forget-pass-container">
-            <h2>Reset Password</h2>
-            {errorMessage && <Alert variant="danger">{errorMessage}</Alert>}
-            {successMessage && <Alert variant="success">{successMessage}</Alert>}
-            <Form onSubmit={handleSubmit}>
-                <Form.Group controlId="formPassword">
-                    <Form.Label>New Password</Form.Label>
-                    <Form.Control
-                        type="password"
-                        placeholder="Enter new password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        isInvalid={password && password.length < 8}
-                    />
-                    <Form.Control.Feedback type="invalid">
-                        Password must be at least 8 characters long.
-                    </Form.Control.Feedback>
-                </Form.Group>
-
-                <Form.Group controlId="formConfirmPassword">
-                    <Form.Label>Confirm Password</Form.Label>
-                    <Form.Control
-                        type="password"
-                        placeholder="Confirm new password"
-                        value={confirmPassword}
-                        onChange={(e) => setConfirmPassword(e.target.value)}
-                        isInvalid={confirmPassword && confirmPassword !== password}
-                    />
-                    <Form.Control.Feedback type="invalid">
-                        Passwords do not match.
-                    </Form.Control.Feedback>
-                </Form.Group>
-
-                <Button variant="primary" type="submit">
-                    Reset Password
-                </Button>
-            </Form>
+      <div
+        style={{
+          flex: 1,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          backgroundColor: 'white',
+          padding: '20px',
+        }}
+      >
+        <div style={{ maxWidth: '400px', width: '100%' }}>
+          <h3 style={{ textAlign: 'center', marginBottom: '20px' }}>Atur Ulang Kata Sandi</h3>
+          <Form>
+            <Form.Group controlId="newPassword">
+              <Form.Label>Kata Sandi Baru</Form.Label>
+              <Form.Control type="password" placeholder="Masukkan kata sandi baru" />
+            </Form.Group>
+            <Form.Group controlId="confirmPassword" style={{ marginTop: '15px' }}>
+              <Form.Label>Konfirmasi Kata Sandi</Form.Label>
+              <Form.Control type="password" placeholder="Konfirmasi kata sandi" />
+            </Form.Group>
+            <Button
+              type="submit"
+              style={{ marginTop: '20px', width: '100%', backgroundColor: '#6C63FF', border: 'none' }}
+            >
+              Simpan Kata Sandi
+            </Button>
+          </Form>
         </div>
-    );
-};
-
-export default ForgetPass;
+      </div>
+    </div>
+  );
+}
