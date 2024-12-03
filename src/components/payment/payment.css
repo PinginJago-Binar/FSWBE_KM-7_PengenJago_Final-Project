@@ -1,0 +1,92 @@
+/* Ubah latar belakang tombol saat aktif */
+.accordion-button[aria-expanded="true"] {
+  background-color: #7126b5; /* Warna latar belakang */
+  color: white; /* Warna teks */
+}
+
+/* Ubah warna panah menjadi putih */
+.accordion-button::after {
+  filter: brightness(0) invert(1); /* Ikon menjadi putih */
+}
+
+@media (min-width: 481px) and (max-width: 821px) {
+  .content-container .d-flex {
+    display: block !important;
+  }
+  .content-container .btn-kirim {
+    width: 100% !important;
+  }
+
+  .flight-detail-layout {
+    display: flex;
+    justify-content: center;
+    width: 100% !important;
+    margin: 20px 0px;
+  }
+}
+
+@media (max-width: 480px) {
+  .content-container .d-flex {
+    display: block !important;
+  }
+
+  .content-container .btn-kirim {
+    width: 100% !important;
+  }
+
+  .flight-detail-layout {
+    display: flex;
+    justify-content: center;
+    border-top: 2px solid #7126b5;
+    box-shadow: 0.8px;
+    width: 100% !important;
+    margin: 20px 0px;
+  }
+}
+
+/* ---------------------------------payment.jsx-------------------------------------------  */
+
+@media (min-width: 481px) and (max-width: 821px) {
+  .payment-display .d-flex {
+    display: block !important;
+  }
+
+  .payment-display .d-flex .left-layout {
+    width: 100% !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .payment-display .d-flex {
+    display: block !important;
+  }
+
+  .payment-display .d-flex .left-layout {
+    width: 100% !important;
+  }
+}
+
+/* ---------------------------------checkout-success.jsx-------------------------------------------  */
+.vh-75 {
+  height: 75vh; /* 80% tinggi viewport */
+}
+
+@media (min-width: 481px) and (max-width: 821px) {
+  .vh-75 .btn-get-ticket {
+    width: 50% !important;
+  }
+
+  .vh-75 .btn-search-ticket {
+    width: 50% !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .vh-75 .btn-get-ticket {
+    width: 70% !important;
+  }
+
+  .vh-75 .btn-search-ticket {
+    width: 70% !important;
+  }
+}

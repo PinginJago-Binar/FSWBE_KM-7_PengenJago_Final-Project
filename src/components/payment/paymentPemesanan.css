@@ -1,0 +1,48 @@
+/* Custom styling for the switch */
+.custom-switch .form-check-input {
+  width: 50px; /* Perbesar ukuran switch */
+  height: 25px;
+  background-color: #ccc; /* Warna dasar */
+  margin-top: 8px;
+  border-radius: 15px;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.custom-switch .form-check-input:checked {
+  background-color: #4b1979; /* Warna ungu saat aktif */
+}
+
+.custom-switch .form-check-input:focus {
+  box-shadow: 0 0 0 0.25rem rgba(75, 25, 121, 0.25); /* Efek fokus */
+}
+
+.custom-switch .form-check-input:before {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  top: 2.5px;
+  left: 2.5px;
+  background-color: white;
+  border-radius: 50%;
+  transition: transform 0.3s ease-in-out;
+}
+
+.custom-switch .form-check-input:checked:before {
+  transform: translateX(25px); /* Gerakkan tombol ke kanan */
+}
+
+/* font color */
+.custom-label {
+  color: #4b1979; /* Warna ungu */
+  font-weight: 700; /* Ketebalan font */
+}
+
+/* Responsif untuk layar di bawah 575px */
+@media (max-width: 576px) {
+  .custom-switch .form-check-input {
+    margin-top: -30px;
+    border-radius: 15px;
+    transition: background-color 0.3s ease-in-out;
+  }
+}
