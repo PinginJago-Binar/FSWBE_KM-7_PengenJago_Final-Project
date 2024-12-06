@@ -1,0 +1,11 @@
+.custom-width {
+  width: 100%; /* Responsif secara default */
+  max-width: 600px; /* Batas maksimum */
+}
+
+@media (min-width: 481px) and (max-width: 821px) {
+  .custom-width {
+    width: 100% !important;
+    max-width: 700px;
+  }
+}
