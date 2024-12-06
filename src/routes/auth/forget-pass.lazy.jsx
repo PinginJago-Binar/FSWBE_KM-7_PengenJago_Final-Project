@@ -33,7 +33,7 @@ function ResetPassword() {
           alignItems: "center",
           justifyContent: "center",
           backgroundColor: "white",
-          padding: "20px",
+          padding: "10px",
         }}
       >
         <div style={{ maxWidth: "400px", width: "100%" }}>

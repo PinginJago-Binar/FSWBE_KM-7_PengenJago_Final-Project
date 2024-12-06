@@ -87,7 +87,9 @@ function ResetRequest() {
                             marginTop: "0.8rem",
                             boxShadow: "4px 4px 10px 2px rgba(0, 0, 0, 0.2)",
                           }}
-                        ></Button>
+                        >
+                          Kirim
+                        </Button>
                       </div>
                     </Col>
                   </Row>

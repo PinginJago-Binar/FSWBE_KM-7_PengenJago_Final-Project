@@ -23,9 +23,9 @@ export const Route = createRootRoute({
           <>
             <NavBar />
             <div id="promo-header-container"></div>
-            <Container>
+            <>
               <Outlet />
-            </Container>
+            </>
           </>
         )}
 
